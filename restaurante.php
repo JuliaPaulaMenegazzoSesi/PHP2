@@ -63,12 +63,8 @@
             <label>
                 <input type="checkbox" name="pedido[]" value="Refri"> Refrigerante
             </label>
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
-    <div class="desconto">
-        <h3>Selecione o desconto</h3>
-        <form action="">
+
+            <h3>Selecione o desconto</h3>
             <input type="radio" id="0" name="desconto" value="0">
             <label for="0">Sem desconto</label><br>
             <input type="radio" id="10" name="desconto" value="10">
@@ -77,6 +73,8 @@
             <label for="20">20% de desconto</label><br>
             <input type="radio" id="30" name="desconto" value="30">
             <label for="30">30% de desconto</label><br>
+
+            <button type="submit">Enviar</button>
         </form>
     </div>
 
@@ -93,6 +91,18 @@
         ];
 
         $total = 0;
+
+        foreach ($pedido as $item){
+            $total += $preco[$item];
+        }
+
+        $desconto = isset($_GET['desconto']) ? (int)$_GET['desconto'] : 0;
+        $totalF = $total - $total * ($desconto/100);
+
+        echo "<h3>Seu pedido:</h3>";
+        echo "<p>Total: R$" . number_format($total, 2, ',', '.') . "</p>";
+        echo "<p>Desconto: $desconto%</p>";
+        echo "<p>Total com desconto: R$" . number_format($totalF, 2, ',', '.') . "</p>";
     }
     ?>
 </body>
